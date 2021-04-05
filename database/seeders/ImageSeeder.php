@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ImageSeeder extends Seeder
 {
@@ -13,7 +15,7 @@ class ImageSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('images')->insert(
+        DB::table('images')->insert([
             [
                 'product_id'    => '1',
                 'Image'         => 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png'
@@ -50,6 +52,6 @@ class ImageSeeder extends Seeder
                 'product_id'    => '4',
                 'Image'         => 'https://www.conexed.com/wp-content/uploads/2019/09/logo273x55.png'
             ],
-        );
+        ]);
     }
 }

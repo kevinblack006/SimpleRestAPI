@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ProductSeeder extends Seeder
 {
@@ -13,7 +15,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('products')->insert(
+        DB::table('products')->insert([
             [
                 'Name'          => '1234-M',
                 'Description'   => 'Mystery Product - Good Luck',
@@ -34,6 +36,6 @@ class ProductSeeder extends Seeder
                 'Description'   => 'This Item is a Test Item',
                 'Price'         => '0.00'
             ]
-        );
+        ]);
     }
 }
