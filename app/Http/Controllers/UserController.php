@@ -11,7 +11,7 @@ class UserController extends Controller
     function index(Request $request)
     {
         $user = User::where('Email', $request->Email)->first();
-            if (!user || !Hash::check($request->$Password, $user->$Password)) {
+            if (!$user || !Hash::check($request->Password, $user->Password)) {
                 return response([
                     'message' => ['These credentials do not match our records.']
                 ], 404);

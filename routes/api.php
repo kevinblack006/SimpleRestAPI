@@ -24,9 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
-    Route::post("login", [UserController::class, 'index']);
-
+    Route::resource('product', ProductController::class);
+    Route::resource('image', ImageController::class);
 });
 
-Route::resource('product', ProductController::class);
-Route::resource('image', ImageController::class);
+Route::post("login", [UserController::class, 'index']);
