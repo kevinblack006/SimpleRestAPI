@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $allProducts = Product::all('id','Name','Description','Price');
+        foreach ($allProducts as $index => $product)
+        {
+            $productImages = DB::table('images')
+                ->select('id','Image')
+                ->where('product_id', '=', $product['id'])
+                ->get();
+            
+
+            $allProducts[$index]['Images'] = $productImages;
+        }
+        return $allProducts;
     }
 
     /**
@@ -24,7 +36,19 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $request->validate([
+            "Name" => "required|max:100",
+            "Description" => "required|max:1000",
+            "Price" => "required|numeric",
+        ]);
+
+        $product = Product::create([
+            'Name' => $request['Name'],
+            'Description' => $request['Description'],
+            'Price' => $request['Price']
+        ]);
+
+        return $this->show($product);
     }
 
     /**
@@ -46,7 +70,14 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $productImages = DB::table('images')
+                ->select('id','Image')
+                ->where('product_id', '=', $product['id'])
+                ->get();
+            
+
+        $product['Images'] = $productImages;
+        return $product;
     }
 
     /**
@@ -69,7 +100,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $product->update([
+            'Name' => $request['Name'],
+            'Description' => $request['Description'],
+            'Price' => $request['Price'],
+        ]);
     }
 
     /**
@@ -80,6 +115,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
     }
 }

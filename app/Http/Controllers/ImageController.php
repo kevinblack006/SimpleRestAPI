@@ -14,7 +14,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //
+        return Image::all();
     }
 
     /**
@@ -24,7 +24,16 @@ class ImageController extends Controller
      */
     public function create()
     {
-        //
+        $request->validate([
+            "product_id" => "required",
+            "Image" => "required|max:256",
+        ]);
+
+        $success = Image::create([
+            'product_id' => $request['product_id'],
+            'Image' => $request['Image'],
+        ]);
+        return $this->index();
     }
 
     /**
@@ -80,6 +89,6 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        //
+        $image->delete();
     }
 }
