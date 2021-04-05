@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +25,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::post("login", [UserController::class, 'index']);
+
 });
+
+Route::resource('product', ProductController::class);
+Route::resource('image', ImageController::class);
